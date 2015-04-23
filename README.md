@@ -15,7 +15,7 @@ client packages but can be forked and modified to include other system libraries
 
 1. Set up your droplet at digitalocean.com.
 2. Log on to your droplet with ssh. (You will be the 'root' user.)
-3. `sudo apt-get --yes vim git subversion`
+3. `sudo apt-get --yes install vim git subversion`
 4. Use git or svn to get your personalized version of the Makefile
 5. `make ` *`OS_TARGET`*
 6. `poweroff` when you are finished.
