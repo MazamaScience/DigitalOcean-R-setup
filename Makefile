@@ -9,7 +9,7 @@ debian7:
 	# Update apt
 	echo "" >> /etc/apt/sources.list
 	echo "#ADDED LINE" >> /etc/apt/sources.list
-	echo "http://cran.fhcrc.org/bin/linux/debian wheezy-cran3/" >> /etc/apt/sources.list
+	echo "deb http://cran.fhcrc.org/bin/linux/debian wheezy-cran3/" >> /etc/apt/sources.list
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 06F90DE5381BA480
 	sudo apt-get update
 	# Install system libraries need by R packages
