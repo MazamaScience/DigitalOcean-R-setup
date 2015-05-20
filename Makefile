@@ -75,6 +75,7 @@ debian8:
 documentation:
 	# Install system libraries
 	sudo apt-get --yes install texlive
+	sudo apt-get --yes install qpdf
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr'))"
 
 hadleyverse:
