@@ -81,7 +81,15 @@ hadleyverse:
 	# Install R packages
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','rvest','testthat'))"
 
-spatial:
+spatial_debian7:
+	# Install system libraries
+	sudo apt-get --yes install libgdal1 libgdal1-dev gdal-bin
+	sudo apt-get --yes install libgeos-c1 libgeos-dev
+	sudo apt-get --yes install libproj0 libproj-dev proj-bin proj-data
+	# Install R packages
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('sp','rgdal','rgeos','maptools'))"
+
+spatial_debian8:
 	# Install system libraries
 	sudo apt-get --yes install libgdal1h libgdal1-dev gdal-bin
 	sudo apt-get --yes install libgeos-c1 libgeos-dev
