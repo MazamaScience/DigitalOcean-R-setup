@@ -21,21 +21,21 @@ core:
 	# Update apt
 	echo "" >> /etc/apt/sources.list
 	echo "#ADDED LINE" >> /etc/apt/sources.list
-	echo "deb http://cran.fhcrc.org/bin/linux/debian squeeze-cran3/" >> /etc/apt/sources.list
-	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 06F90DE5381BA480
-	apt-get update
+	echo "deb http://cran.fhcrc.org/bin/linux/debian wheezy-cran3/" >> /etc/apt/sources.list
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 06F90DE5381BA480
+	sudo apt-get update
 	# Install system libraries needed by R packages
-	apt-get --yes install libcairo2-dev
-	apt-get --yes --force-yes install r-cran-xml # unauthenticated package
-	apt-get --yes install libxml2-dev
-	apt-get --yes install libcurl4-gnutls-dev
-	apt-get --yes --force-yes install r-base r-base-dev # unauthenticated package
+	sudo apt-get --yes install libcairo2-dev
+	sudo apt-get --yes --force-yes install r-cran-xml # unauthenticated package
+	sudo apt-get --yes install libxml2-dev
+	sudo apt-get --yes install libcurl4-gnutls-dev
+	sudo apt-get --yes --force-yes install r-base r-base-dev # unauthenticated package
 
 # Libraries and packages needed to compile package documentation
 documentation:
 	# Install system libraries
-	apt-get --yes install texlive
-	apt-get --yes install qpdf
+	sudo apt-get --yes install texlive
+	sudo apt-get --yes install qpdf
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr'))"
 
 # Libraries and packages needed to compile the 'seismic' package
@@ -47,9 +47,9 @@ seismic:
 # Libraries and packages needed to compile the 'MazamaSpatialUtils' package
 MazamaSpatialUtils:
 	# Install system libraries
-	apt-get --yes install libgdal1 libgdal1-dev gdal-bin
-	apt-get --yes install libgeos-c1 libgeos-dev
-	apt-get --yes install libproj0 libproj-dev proj-bin proj-data
+	sudo apt-get --yes install libgdal1 libgdal1-dev gdal-bin
+	sudo apt-get --yes install libgeos-c1 libgeos-dev
+	sudo apt-get --yes install libproj0 libproj-dev proj-bin proj-data
 	# Install R packages
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('sp','rgdal','rgeos','maptools'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','rvest','testthat'))"
