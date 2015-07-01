@@ -8,7 +8,7 @@ The aim of DigitalOcean-R-setup is to make it easier to test compilation of R pa
 before submitting the package to CRAN. Different Makefiles exist for the different VMs offered by
 [Digital Ocean](http://digitalocean.com). Each Makefile is targeted to the needs of
 [Mazama Science](http://mazamascience.com) for the testing of packages we maintain.
-Others may wish to fork and modify these makefiles to include other system libraries and R packages appropriate for testing their own packages.
+Others may wish to fork and modify these Makefiles to include other system libraries and R packages appropriate for testing their own packages.
 
 
 ## Instructions
