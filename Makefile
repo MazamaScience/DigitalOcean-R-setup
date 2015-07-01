@@ -7,6 +7,9 @@
 
 
 debian6:
+	# Set git editor to vim
+        echo "export GIT_EDITOR=vim" >> ~/.bashrc
+        source ~/.bashrc
 	# Update apt
 	echo "" >> /etc/apt/sources.list
 	echo "#ADDED LINE" >> /etc/apt/sources.list
