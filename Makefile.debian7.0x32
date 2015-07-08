@@ -18,6 +18,8 @@ core:
 	# Set git editor to vim
 	echo "export GIT_EDITOR=vim" >> ~/.bashrc
 	export GIT_EDITOR=vim
+	echo "export SVN_EDITOR=vim" >> ~/.bashrc
+	export SVN_EDITOR=vim
 	# Update apt
 	echo "" >> /etc/apt/sources.list
 	echo "#ADDED LINE" >> /etc/apt/sources.list
