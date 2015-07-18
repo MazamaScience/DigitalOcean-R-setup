@@ -45,6 +45,7 @@ seismic:
 	# Install R packages
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('stringr','signal','pracma','XML','RCurl'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('maps','mapdata','microbenchmark'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('seismicRoll'))"
 
 # Libraries and packages needed to compile the 'MazamaSpatialUtils' package
 MazamaSpatialUtils:
