@@ -36,7 +36,7 @@ core:
 # Libraries and packages needed to compile package documentation
 documentation:
 	# Install system libraries
-	sudo apt-get --yes install texlive
+	sudo apt-get --yes install texlive texinfo
 	sudo apt-get --yes install qpdf
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr'))"
 
