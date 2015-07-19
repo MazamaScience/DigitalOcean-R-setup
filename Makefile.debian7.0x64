@@ -26,8 +26,8 @@ core:
 	echo "deb http://cran.fhcrc.org/bin/linux/debian wheezy-cran3/" >> /etc/apt/sources.list
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 06F90DE5381BA480
 	sudo apt-get update
-	# Install system libraries needed by R packages
-	sudo apt-get --yes install libcairo2-dev
+	# Install system libraries needed by R and R packages
+        sudo apt-get --yes install libgtk2.0-dev libcairo2-dev xvfb xauth xfonts-base
 	sudo apt-get --yes --force-yes install r-cran-xml # unauthenticated package
 	sudo apt-get --yes install libxml2-dev
 	sudo apt-get --yes install libcurl4-gnutls-dev
@@ -39,6 +39,30 @@ documentation:
 	sudo apt-get --yes install texlive
 	sudo apt-get --yes install qpdf
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr'))"
+
+# Development version of R following instructions here:
+#   https://cran.r-project.org/bin/linux/debian/#installing-r-devel-or-a-release-branch-from-svn
+R-devel-setup:
+	sudo apt-get --yes build-dep r-base
+	mkdir -p ~/svn/R
+	export RTOP=~/svn/R
+	export REPOS=https://svn.r-project.org/R
+	cd $RTOP
+	svn co $REPOS/trunk r-devel/source
+	mkdir -p $RTOP/r-devel/build
+	# the second time we only need to
+	#cd $RTOP/r-devel/source
+	#svn update
+	cd $RTOP/r-devel/build
+	../source/configure
+	make
+	#make check
+	#make pdf
+	#make info
+	cd /usr/local/bin
+	ln -s /$RTOP/r-devel/build/bin/R R-devel
+	ln -s /$RTOP/r-devel/build/bin/Rscript Rscript-devel
+
 
 # Libraries and packages needed to compile the 'seismic' package
 seismic:
