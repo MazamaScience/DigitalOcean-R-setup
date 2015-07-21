@@ -1,6 +1,6 @@
 # DigitalOcean-R-setup
 
-Makefile set up Digital Ocean droplets with software to compile R packages.
+Makefiles to set up Digital Ocean droplets with software to compile R packages.
 
 ## Background
 
