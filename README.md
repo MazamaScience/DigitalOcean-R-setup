@@ -21,6 +21,7 @@ Others may wish to fork and modify these Makefiles to include other system libra
   * Fedora, CentOS: `yum --assumeyes install make vim git subversion`
 4. Get the Makefiles and run make
   * `git clone https://github.com/jonathancallahan/DigitalOcean-R-setup.git`
+  * `cd DigitalOcean-R-setup`
   * `make -f Makefile.*OS_TARGET* all`
 5. User svn or git to get your own code and test compile with
   * `R-devel CMD build *YOUR_PACKAGE*`

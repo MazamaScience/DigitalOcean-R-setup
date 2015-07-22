@@ -1,4 +1,4 @@
-# DigitalOcean Makefile for Debian 7.0
+# DigitalOcean Makefile for Debian 8.1
 #
 # Targets for installation of software on Digital Ocean VMs.
 #
@@ -33,8 +33,8 @@ setup:
 	# Update apt
 	echo "" >> /etc/apt/sources.list
 	echo "# ADDED LINE" >> /etc/apt/sources.list
-	echo "deb http://cran.fhcrc.org/bin/linux/debian wheezy-cran3/" >> /etc/apt/sources.list
-	echo "deb-src http://cran.fhcrc.org/bin/linux/debian wheezy-cran3/" >> /etc/apt/sources.list
+	echo "deb http://cran.fhcrc.org/bin/linux/debian jessie-cran3/" >> /etc/apt/sources.list
+	echo "deb-src http://cran.fhcrc.org/bin/linux/debian jessie-cran3/" >> /etc/apt/sources.list
 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 06F90DE5381BA480
 	apt-get update
 	# Update the list of available packages
@@ -64,6 +64,7 @@ documentation:
 	# Install system libraries
 	apt-get --yes install texlive
 	apt-get --yes install qpdf
+	# Install R packages
 	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr'))"
 
 # Install libraries and packages needed to compile the 'IRISSeismic' package
@@ -72,9 +73,6 @@ seismic:
 	apt-get --yes install libxml2-dev
 	apt-get --yes --force-yes install r-cran-xml # unauthenticated package
 	# Install R packages
-	apt-get --yes --force-yes install r-cran-xml # unauthenticated package
-	apt-get --yes install libxml2-dev
-	apt-get --yes install libcurl4-gnutls-dev
 	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('stringr','signal','pracma','XML','RCurl'))"
 	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('maps','mapdata','microbenchmark'))"
 	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('seismicRoll'))"
