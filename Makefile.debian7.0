@@ -8,6 +8,10 @@
 # Hints on compiling the development version of R for CRAN testing:
 #   https://cran.r-project.org/bin/linux/debian/#installing-r-devel-or-a-release-branch-from-svn
 
+# Configurable variables
+RTOP=/root/RTOP
+REPOS=https://svn.r-project.org/R
+
 # Default target
 all: setup r-devel documentation
 	# Get and compile R packages
@@ -36,22 +40,17 @@ setup:
 	# Update the list of available packages
 	apt-get --yes build-dep r-base
 	# Create environment variables
-	mkdir -p ~/svn/R
-	export RTOP=~/RTOP
-	export REPOS=https://svn.r-project.org/R
+	mkdir -p ${RTOP}
 	# Check out latest version of r-devel
-	cd ${RTOP}; svn co ${REPOS}/trunk r-devel/source; mkdir -p ${RTOP}/r-devel/build
+	cd ${RTOP}; svn co ${REPOS}/trunk r-devel/source
+	mkdir -p ${RTOP}/r-devel/build
 
 # Update R source code
 update-r:
-	export RTOP=~/RTOP
-	export REPOS=https://svn.r-project.org/R
 	cd ${RTOP}/r-devel/source; svn update
 
 # Compile development version of R
 r-devel:
-	export RTOP=~/RTOP
-	export REPOS=https://svn.r-project.org/R
 	# Get sources for the recommended packages
 	cd ${RTOP}/r-devel/source/tools; ./rsync-recommended
 	# Build in a separate directory so as not to pollute source code
