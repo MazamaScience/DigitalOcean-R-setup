@@ -64,6 +64,7 @@ documentation:
 	# Install system libraries
 	apt-get --yes install texlive
 	apt-get --yes install qpdf
+	# Install R packages
 	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr'))"
 
 # Install libraries and packages needed to compile the 'IRISSeismic' package
@@ -72,9 +73,6 @@ seismic:
 	apt-get --yes install libxml2-dev
 	apt-get --yes --force-yes install r-cran-xml # unauthenticated package
 	# Install R packages
-	apt-get --yes --force-yes install r-cran-xml # unauthenticated package
-	apt-get --yes install libxml2-dev
-	apt-get --yes install libcurl4-gnutls-dev
 	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('stringr','signal','pracma','XML','RCurl'))"
 	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('maps','mapdata','microbenchmark'))"
 	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('seismicRoll'))"
