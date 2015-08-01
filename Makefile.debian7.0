@@ -79,6 +79,7 @@ seismic:
 
 # Install libraries and packages needed to compile the 'IRISSeismic' package
 seismicMetrics:
+	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('IRISSeismic'))"
 
 # Install libraries and packages needed to compile the 'MazamaSpatialUtils' package
 MazamaSpatialUtils:

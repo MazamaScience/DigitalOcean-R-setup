@@ -1,0 +1,56 @@
+# DigitalOcean Makefile for Fedora 22
+#
+# Targets for installation of software on Digital Ocean VMs.
+#
+# Software includes the bare minimum to test R compilation of the 'seismic'
+# and 'MazamaSpatialUtils' packages developed by Mazama Science.
+#
+# Hints on compiling the development version of R for CRAN testing:
+#   https://cran.r-project.org/bin/linux/debian/#installing-r-devel-or-a-release-branch-from-svn
+
+# Default target
+all: setup r-devel
+
+# Update and compile R
+update: update-r r-devel
+
+# Core system assets and libraries
+setup:
+	# Set git editor to vim
+	echo "export GIT_EDITOR=vim" >> ~/.bashrc
+	export GIT_EDITOR=vim
+	echo "export SVN_EDITOR=vim" >> ~/.bashrc
+	export SVN_EDITOR=vim
+
+# Update R from rpm
+update-r:
+	dnf upgrade R
+
+# Get latest version of R from rpm
+r-devel:
+	dnf --assumeyes install R
+
+# Install libraries and packages needed to compile the 'IRISSeismic' package
+seismic:
+	# Install system libraries
+	# Install R packages
+	dnf --assumeyes install R-XML
+	dnf --assumeyes install R-RCurl
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('stringr','signal','pracma'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('maps','mapdata','microbenchmark'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('seismicRoll'))"
+
+# Install libraries and packages needed to compile the 'IRISSeismic' package
+seismicMetrics:
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('IRISSeismic'))"
+
+# Install libraries and packages needed to compile the 'MazamaSpatialUtils' package
+MazamaSpatialUtils:
+	## Install system libraries
+	#apt-get --yes install libgdal1 libgdal1-dev gdal-bin
+	#apt-get --yes install libgeos-c1 libgeos-dev
+	#apt-get --yes install libproj0 libproj-dev proj-bin proj-data
+	# Install R packages
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('sp','rgdal','rgeos','maptools'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','rvest','testthat'))"
+
