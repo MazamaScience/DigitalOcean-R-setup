@@ -12,6 +12,10 @@ Others may wish to fork and modify these Makefiles to include other system libra
 
 *NOTE:* Currently only `Makefile.debian7.0` is set up to compile R-devel
 
+## Creating a DO account
+
+If you don't already have one, [create a DO account](www.digitalocean.com/?refcode=b34e83c1ff12). If you use this link, you'll start with $10 in credits and if you become a digital ocean customer we get $25 worth of DO credits. Win-win!
+
 ## Instructions
 
 1. Set up your droplet at digitalocean.com.
