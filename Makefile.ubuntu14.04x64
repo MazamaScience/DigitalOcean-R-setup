@@ -40,12 +40,16 @@ documentation:
 	sudo apt-get --yes install qpdf
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr'))"
 
-# Libraries and packages needed to compile the 'seismic' package
-seismic:
+# Libraries and packages needed to compile the 'IRISSeismic' package
+IRISSeismic:
 	# Install R packages
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('stringr','signal','pracma','XML','RCurl'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('maps','mapdata','microbenchmark'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('seismicRoll'))"
+
+# Install libraries and packages needed to compile the 'IRISMustangMetrics' package
+IRISMustangMetrics: IRISSeismic
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('IRISSeismic'))"
 
 # Libraries and packages needed to compile the 'MazamaSpatialUtils' package
 MazamaSpatialUtils:

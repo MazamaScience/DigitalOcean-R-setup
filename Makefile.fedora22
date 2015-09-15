@@ -31,7 +31,7 @@ r-devel:
 	dnf --assumeyes install R
 
 # Install libraries and packages needed to compile the 'IRISSeismic' package
-seismic:
+IRISSeismic:
 	# Install system libraries
 	# Install R packages
 	dnf --assumeyes install R-XML
@@ -40,8 +40,8 @@ seismic:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('maps','mapdata','microbenchmark'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('seismicRoll'))"
 
-# Install libraries and packages needed to compile the 'IRISSeismic' package
-seismicMetrics:
+# Install libraries and packages needed to compile the 'IRISMustangMetrics' package
+IRISMustangMetrics: IRISSeismic
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('IRISSeismic'))"
 
 # Install libraries and packages needed to compile the 'MazamaSpatialUtils' package
