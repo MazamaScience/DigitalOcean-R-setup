@@ -21,7 +21,7 @@ If you don't already have one, [create a DO account](www.digitalocean.com/?refco
 1. Set up your droplet at digitalocean.com.
 2. Log on to your droplet with ssh. (You will be the 'root' user.)
 3. Install make, vim, git and subversion by hand
-  * Debian, Ubuntu: `apt-get --yes install make vim git subversion`
+  * Debian, Ubuntu: `apt-get update; apt-get --yes install make vim git subversion`
   * Fedora, CentOS: `yum --assumeyes install make vim git subversion`
 4. Get the Makefiles and run make
   * `git clone https://github.com/jonathancallahan/DigitalOcean-R-setup.git`
