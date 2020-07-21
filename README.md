@@ -14,7 +14,7 @@ Others may wish to fork and modify these Makefiles to include other system libra
 
 ## Creating a DO account
 
-If you don't already have one, [create a DO account](www.digitalocean.com/?refcode=b34e83c1ff12). If you use this link, you'll start with $10 in credits and if you become a digital ocean customer we get $25 worth of DO credits. Win-win!
+Good instructions for creating an account and authenticating are documented in the **analogsea** package at https://analogsea.icu/#create-a-do-account
 
 ## Instructions
 
