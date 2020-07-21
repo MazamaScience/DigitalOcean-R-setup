@@ -21,9 +21,9 @@ Good instructions for creating an account and authenticating are documented in t
 1. Spin up your droplet in RStudio using the [analogsea](https://analogsea.icu) package:
   * `> d1 <- droplet_create(ssh_keys = "YOUR_PERSONAL_ACCESS_TOKEN")`
 2. Log on to your droplet with ssh. (You will be the 'root' user.)
-3. Install make, vim and git by hand:
-  * Debian, Ubuntu: `apt-get update; apt-get --yes install make vim git`
-  * Fedora, CentOS: `yum --assumeyes install make vim git`
+3. Install make, vim, git and subversion by hand:
+  * Debian, Ubuntu: `apt-get update; apt-get --yes install make vim git subversion`
+  * Fedora, CentOS: `yum --assumeyes install make vim git subversion`
 4. Get the Makefiles and run make:
   * `git clone https://github.com/jonathancallahan/DigitalOcean-R-setup.git`
   * `cd DigitalOcean-R-setup`

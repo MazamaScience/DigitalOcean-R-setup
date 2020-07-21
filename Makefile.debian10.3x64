@@ -1,0 +1,93 @@
+# DigitalOcean Makefile for Debian 10.3 x64
+#
+# Targets for installation of software on Digital Ocean VMs.
+#
+# Software includes the bare minimum to test R compilation of the
+# 'MazamaSpatialUtils' package developed by Mazama Science.
+#
+# Hints on compiling the development version of R for CRAN testing:
+#   https://cran.r-project.org/bin/linux/debian/#installing-r-devel-or-a-release-branch-from-svn
+
+# Configurable variables
+RTOP=/root/RTOP
+REPOS=https://svn.r-project.org/R
+
+# Default target
+all: setup r-devel documentation
+	# Get and compile R packages
+	echo "Get package source code via svn or git."
+	echo "R CMD build YOUR_FLAGS YOUR_PACKAGE"
+	echo "R CMD check YOUR_FLAGS YOUR_PACKAGE.VERSION.tar.gz"
+	echo "R CMD INSTALL YOUR_PACKAGE.VERSION.tar.gz"
+
+# Update and compile R
+update: update-r r-devel
+
+# Core system assets and libraries
+setup:
+	# Set git editor to vim
+	echo "export GIT_EDITOR=vim" >> ~/.bashrc
+	export GIT_EDITOR=vim
+	echo "export SVN_EDITOR=vim" >> ~/.bashrc
+	export SVN_EDITOR=vim
+	# Update apt
+	echo "" >> /etc/apt/sources.list
+	echo "# ADDED LINE" >> /etc/apt/sources.list
+	echo "deb http://cran.fhcrc.org/bin/linux/debian jessie-cran3/" >> /etc/apt/sources.list
+	echo "deb-src http://cran.fhcrc.org/bin/linux/debian jessie-cran3/" >> /etc/apt/sources.list
+	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 06F90DE5381BA480
+	apt-get update
+	# Update the list of available packages
+	apt-get --yes build-dep r-base
+	# Create environment variables
+	mkdir -p ${RTOP}
+	# Check out latest version of r-devel
+	cd ${RTOP}; svn co ${REPOS}/trunk r-devel/source
+	mkdir -p ${RTOP}/r-devel/build
+
+# Update R source code
+update-r:
+	cd ${RTOP}/r-devel/source; svn update
+
+# Compile development version of R
+r-devel:
+	# Get sources for the recommended packages
+	cd ${RTOP}/r-devel/source/tools; ./rsync-recommended
+	# Build in a separate directory so as not to pollute source code
+	cd ${RTOP}/r-devel/build; ../source/configure; make; make check
+	# Set up links to R-devel and Rscript-devel
+	ln -s /${RTOP}/r-devel/build/bin/R /usr/local/bin/R-devel
+	ln -s /${RTOP}/r-devel/build/bin/Rscript /usr/local/bin/Rscript-devel
+
+# Install libraries and packages needed to compile package documentation
+documentation:
+	# Install system libraries
+	apt-get --yes install texlive
+	apt-get --yes install qpdf
+	# Install R packages
+	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr','rmarkdown'))"
+
+# # Install libraries and packages needed to compile the 'IRISSeismic' package
+# IRISSeismic:
+# 	# Install system libraries
+# 	apt-get --yes install libxml2-dev
+# 	apt-get --yes --force-yes install r-cran-xml # unauthenticated package
+#	# Install R packages
+#	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('stringr','signal','pracma','XML','RCurl'))"
+#	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('maps','mapdata','microbenchmark'))"
+#	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('seismicRoll'))"
+
+# # Install libraries and packages needed to compile the 'IRISMustangMetrics' package
+# IRISMustangMetrics: IRISSeismic
+#	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('IRISSeismic'))"
+
+# Install libraries and packages needed to compile the 'MazamaSpatialUtils' package
+MazamaSpatialUtils:
+	# Install system libraries
+	apt-get --yes install libgdal1 libgdal1-dev gdal-bin
+	apt-get --yes install libgeos-c1 libgeos-dev
+	apt-get --yes install libproj0 libproj-dev proj-bin proj-data
+	# Install R packages
+	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('sp','rgdal','rgeos','maptools'))"
+	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','rvest','testthat'))"
+
