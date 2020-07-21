@@ -22,15 +22,15 @@ setup:
 	echo "export SVN_EDITOR=vim" >> ~/.bashrc
 	export SVN_EDITOR=vim
 	# Update apt
-	sudo apt update
-	sudo apt --yes upgrade
-
-# Base R	
-base_R:
 	echo "" >> /etc/apt/sources.list
 	echo "#ADDED LINE" >> /etc/apt/sources.list
 	echo "deb http://cran.fhcrc.org/bin/linux/ubuntu bionic-cran40/" >> /etc/apt/sources.list
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+	sudo apt update
+	sudo apt --yes --force-yes upgrade
+
+# Base R	
+base_R:
 	sudo apt --yes --force-yes install r-base r-base-dev
 
 # Libraries and packages needed to compile package documentation
