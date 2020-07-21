@@ -75,20 +75,6 @@ documentation:
 	# Install R packages
 	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr','rmarkdown'))"
 
-# # Install libraries and packages needed to compile the 'IRISSeismic' package
-# IRISSeismic:
-# 	# Install system libraries
-# 	apt-get --yes install libxml2-dev
-# 	apt-get --yes --force-yes install r-cran-xml # unauthenticated package
-#	# Install R packages
-#	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('stringr','signal','pracma','XML','RCurl'))"
-#	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('maps','mapdata','microbenchmark'))"
-#	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('seismicRoll'))"
-
-# # Install libraries and packages needed to compile the 'IRISMustangMetrics' package
-# IRISMustangMetrics: IRISSeismic
-#	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('IRISSeismic'))"
-
 # Install libraries and packages needed to compile the 'MazamaSpatialUtils' package
 MazamaSpatialUtils:
 	# Install system libraries
