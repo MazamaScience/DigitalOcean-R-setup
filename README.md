@@ -25,7 +25,7 @@ the **analogsea** package at https://analogsea.icu/#create-a-do-account
   * Ubuntu 18.04 > Basic > Create Droplet"
 2. Log on to your droplet with ssh. (You will be the 'root' user.)
 3. Install make, vim, git and subversion by hand:
-  * Debian, Ubuntu: `get update; apt-get --yes install make vim git subversion`
+  * Debian, Ubuntu: `apt update; apt --yes install make vim git subversion`
   * Fedora, CentOS: `yum --assumeyes install make vim git subversion`
 4. Get the Makefiles and run make:
   * `git clone https://github.com/jonathancallahan/DigitalOcean-R-setup.git`
