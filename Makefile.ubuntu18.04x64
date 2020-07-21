@@ -1,12 +1,12 @@
-# AWS Makefile for Ubuntu-16.04-x64
+# AWS Makefile for Ubuntu-18.04-x64 (Bionic Beaver)
 #
-# Targets for installation of software on AWS VMs.
+# Targets for installation of software on Digital Ocean VMs.
 #
-# Software includes the bare minimum to test R compilation of the 'seismic'
-# and 'MazamaSpatialUtils' packages developed by Mazama Science.
+# Software includes the bare minimum to test R compilation of the
+# 'MazamaSpatialUtils' package developed by Mazama Science.
 
 
-all: core documentation
+all: setup base_r documentation
 	# Get and compile R packages
 	echo "Get package source code via svn or git."
 	echo "R CMD build YOUR_FLAGS YOUR_PACKAGE"
@@ -14,49 +14,37 @@ all: core documentation
 	echo "R CMD INSTALL YOUR_PACKAGE.VERSION.tar.gz"
 
 # Core system assets and libraries
-core:
+setup:
 	# Set git editor to vim
 	echo "export GIT_EDITOR=vim" >> ~/.bashrc
 	export GIT_EDITOR=vim
 	echo "export SVN_EDITOR=vim" >> ~/.bashrc
 	export SVN_EDITOR=vim
 	# Update apt
+	sudo apt update
+	sudo apt --yes upgrade
+	
+base_R:
+	# Install R
 	echo "" >> /etc/apt/sources.list
 	echo "#ADDED LINE" >> /etc/apt/sources.list
-	echo "deb http://cran.fhcrc.org/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-	sudo apt-get update
-	# Install system libraries needed by R packages
-	sudo apt-get --yes install libcairo2-dev
-	sudo apt-get --yes --force-yes install r-cran-xml # unauthenticated package
-	sudo apt-get --yes install libxml2-dev
-	sudo apt-get --yes install libcurl4-gnutls-dev
-	sudo apt-get --yes --force-yes install r-base r-base-dev # unauthenticated package
+	echo "deb http://cran.fhcrc.org/bin/linux/ubuntu bionic-cran40/" >> /etc/apt/sources.list
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+	sudo apt --yes --force-yes install r-base r-base-dev
 
 # Libraries and packages needed to compile package documentation
 documentation:
 	# Install system libraries
-	sudo apt-get --yes install texlive texinfo
-	sudo apt-get --yes install qpdf
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr'))"
-
-# Libraries and packages needed to compile the 'IRISSeismic' package
-IRISSeismic:
-	# Install R packages
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('stringr','signal','pracma','XML','RCurl'))"
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('maps','mapdata','microbenchmark'))"
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('seismicRoll'))"
-
-# Install libraries and packages needed to compile the 'IRISMustangMetrics' package
-IRISMustangMetrics: IRISSeismic
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('IRISSeismic'))"
+	sudo apt --yes install texlive texinfo
+	sudo apt --yes install qpdf
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr','rmarkdown'))"
 
 # Libraries and packages needed to compile the 'MazamaSpatialUtils' package
 MazamaSpatialUtils:
 	# Install system libraries
-	sudo apt-get --yes install libgdal1-dev gdal-bin
-	sudo apt-get --yes install libgeos-c1 libgeos-dev
-	sudo apt-get --yes install libproj0 libproj-dev proj-bin proj-data
+	sudo apt --yes install libgdal1-dev gdal-bin
+	sudo apt --yes install libgeos-c1 libgeos-dev
+	sudo apt --yes install libproj0 libproj-dev proj-bin proj-data
 	# Install R packages
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('sp','rgdal','rgeos','maptools'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','rvest','testthat'))"
