@@ -13,15 +13,12 @@ RTOP=/root/RTOP
 REPOS=https://svn.r-project.org/R
 
 # Default target
-all: setup r-devel documentation
+all: add_swap setup documentation geospatial
 	# Get and compile R packages
 	echo "Get package source code via svn or git."
 	echo "R CMD build YOUR_FLAGS YOUR_PACKAGE"
 	echo "R CMD check YOUR_FLAGS YOUR_PACKAGE.VERSION.tar.gz"
 	echo "R CMD INSTALL YOUR_PACKAGE.VERSION.tar.gz"
-
-# Update and compile R
-update: update-r r-devel
 
 # Add swap space
 add_swap:
@@ -36,52 +33,60 @@ setup:
 	# Set git editor to vim
 	echo "export GIT_EDITOR=vim" >> ~/.bashrc
 	export GIT_EDITOR=vim
-	echo "export SVN_EDITOR=vim" >> ~/.bashrc
-	export SVN_EDITOR=vim
 	# Update apt
+	apt --yes install gnupg
 	echo "" >> /etc/apt/sources.list
 	echo "# ADDED LINE" >> /etc/apt/sources.list
-	echo "deb http://cran.fhcrc.org/bin/linux/debian jessie-cran3/" >> /etc/apt/sources.list
-	echo "deb-src http://cran.fhcrc.org/bin/linux/debian jessie-cran3/" >> /etc/apt/sources.list
-	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 06F90DE5381BA480
-	apt-get update
-	# Update the list of available packages
-	apt-get --yes build-dep r-base
-	# Create environment variables
-	mkdir -p ${RTOP}
-	# Check out latest version of r-devel
-	cd ${RTOP}; svn co ${REPOS}/trunk r-devel/source
-	mkdir -p ${RTOP}/r-devel/build
-
-# Update R source code
-update-r:
-	cd ${RTOP}/r-devel/source; svn update
-
-# Compile development version of R
-r-devel:
-	# Get sources for the recommended packages
-	cd ${RTOP}/r-devel/source/tools; ./rsync-recommended
-	# Build in a separate directory so as not to pollute source code
-	cd ${RTOP}/r-devel/build; ../source/configure; make; make check
-	# Set up links to R-devel and Rscript-devel
-	ln -s /${RTOP}/r-devel/build/bin/R /usr/local/bin/R-devel
-	ln -s /${RTOP}/r-devel/build/bin/Rscript /usr/local/bin/Rscript-devel
+	echo "deb http://cloud.r-project.org/bin/linux/debian buster-cran40/" >> /etc/apt/sources.list
+	apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'
+	apt update
+	# Upgrade packages
+	apt --yes upgrade
+	# Install R
+	apt --yes install -t buster-cran40 r-base
 
 # Install libraries and packages needed to compile package documentation
 documentation:
 	# Install system libraries
-	apt-get --yes install texlive
-	apt-get --yes install qpdf
+	apt --yes install texlive
+	apt --yes install qpdf
 	# Install R packages
-	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr','rmarkdown'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr','rmarkdown'))"
+
+# Install libraries and executables needed for geospatial analysis
+geospatial:
+	# Geospatial components copied from https://hub.docker.com/r/rocker/geospatial/dockerfile
+	apt --yes install lbzip2
+	apt --yes install libfftw3-dev
+	apt --yes install libgdal-dev
+	apt --yes install libgeos-dev
+	apt --yes install libhdf4-alt-dev
+	apt --yes install libhdf5-dev
+	apt --yes install libjq-dev
+	apt --yes install libpq-dev
+	apt --yes install libproj-dev
+	apt --yes install libprotobuf-dev
+	apt --yes install libnetcdf-dev
+	apt --yes install libsqlite3-dev
+	apt --yes install libssl-dev
+	apt --yes install libudunits2-dev
+	apt --yes install libv8-dev
+	apt --yes install netcdf-bin
+	apt --yes install protobuf-compiler
+	apt --yes install sqlite3
+	apt --yes install tk-dev
+	apt --yes install unixodbc-dev
 
 # Install libraries and packages needed to compile the 'MazamaSpatialUtils' package
+#   https://hub.docker.com/r/rocker/geospatial/dockerfile
 MazamaSpatialUtils:
 	# Install system libraries
-	apt-get --yes install libgdal1 libgdal1-dev gdal-bin
-	apt-get --yes install libgeos-c1 libgeos-dev
-	apt-get --yes install libproj0 libproj-dev proj-bin proj-data
-	# Install R packages
-	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('sp','rgdal','rgeos','maptools'))"
-	/usr/local/bin/Rscript-devel -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','rvest','testthat'))"
+	apt --yes install libcurl4-openssl-dev
+	# Install R packages for MazamaSpatialUtils 0.6
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('sp','rgdal','rgeos','maptools'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','rvest','testthat'))"
+	# Install R packages for MazamaSpatialUtils 0.7
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('lubridate','remotes','tidyr'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('cleangeo','countrycode','geojsonio','rmapshaper'))"
+
 
