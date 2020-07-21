@@ -31,16 +31,16 @@ setup:
 	echo "export GIT_EDITOR=vim" >> ~/.bashrc
 	export GIT_EDITOR=vim
 	# Update apt
-	apt update
-	apt --yes upgrade
-
-# Base R	
-base_R:
 	apt --yes install gnupg
 	echo "" >> /etc/apt/sources.list
 	echo "# ADDED LINE" >> /etc/apt/sources.list
 	echo "deb http://cloud.r-project.org/bin/linux/debian buster-cran40/" >> /etc/apt/sources.list
 	apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'
+	apt update
+	apt --yes upgrade
+
+# Base R	
+base_R:
 	apt --yes install -t buster-cran40 r-base
 
 # Libraries and packages needed to compile package documentation
