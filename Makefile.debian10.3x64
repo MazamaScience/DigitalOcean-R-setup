@@ -1,4 +1,4 @@
-# DigitalOcean Makefile for Debian 10.3 x64
+# DigitalOcean Makefile for Debian 10.3 x64 (Buster)
 #
 # Targets for installation of software on Digital Ocean VMs.
 #
@@ -8,12 +8,9 @@
 # Hints on compiling the development version of R for CRAN testing:
 #   https://cran.r-project.org/bin/linux/debian/#installing-r-devel-or-a-release-branch-from-svn
 
-# Configurable variables
-RTOP=/root/RTOP
-REPOS=https://svn.r-project.org/R
 
 # Default target
-all: add_swap setup documentation geospatial
+all: add_swap setup base_R documentation geospatial
 	# Get and compile R packages
 	echo "Get package source code via svn or git."
 	echo "R CMD build YOUR_FLAGS YOUR_PACKAGE"
@@ -34,18 +31,19 @@ setup:
 	echo "export GIT_EDITOR=vim" >> ~/.bashrc
 	export GIT_EDITOR=vim
 	# Update apt
+	apt update
+	apt --yes upgrade
+
+# Base R	
+base_R:
 	apt --yes install gnupg
 	echo "" >> /etc/apt/sources.list
 	echo "# ADDED LINE" >> /etc/apt/sources.list
 	echo "deb http://cloud.r-project.org/bin/linux/debian buster-cran40/" >> /etc/apt/sources.list
 	apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'
-	apt update
-	# Upgrade packages
-	apt --yes upgrade
-	# Install R
 	apt --yes install -t buster-cran40 r-base
 
-# Install libraries and packages needed to compile package documentation
+# Libraries and packages needed to compile package documentation
 documentation:
 	# Install system libraries
 	apt --yes install texlive

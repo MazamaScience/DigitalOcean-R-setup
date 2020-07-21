@@ -6,7 +6,8 @@
 # 'MazamaSpatialUtils' package developed by Mazama Science.
 
 
-all: setup base_r documentation
+# Default target
+all: setup base_r documentation geospatial
 	# Get and compile R packages
 	echo "Get package source code via svn or git."
 	echo "R CMD build YOUR_FLAGS YOUR_PACKAGE"
@@ -23,9 +24,9 @@ setup:
 	# Update apt
 	sudo apt update
 	sudo apt --yes upgrade
-	
+
+# Base R	
 base_R:
-	# Install R
 	echo "" >> /etc/apt/sources.list
 	echo "#ADDED LINE" >> /etc/apt/sources.list
 	echo "deb http://cran.fhcrc.org/bin/linux/ubuntu bionic-cran40/" >> /etc/apt/sources.list
@@ -39,13 +40,38 @@ documentation:
 	sudo apt --yes install qpdf
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr','rmarkdown'))"
 
-# Libraries and packages needed to compile the 'MazamaSpatialUtils' package
+# Libraries and executables needed for geospatial analysis
+geospatial:
+	# Geospatial components copied from https://hub.docker.com/r/rocker/geospatial/dockerfile
+	apt --yes install lbzip2
+	apt --yes install libfftw3-dev
+	apt --yes install libgdal-dev
+	apt --yes install libgeos-dev
+	apt --yes install libhdf4-alt-dev
+	apt --yes install libhdf5-dev
+	apt --yes install libjq-dev
+	apt --yes install libpq-dev
+	apt --yes install libproj-dev
+	apt --yes install libprotobuf-dev
+	apt --yes install libnetcdf-dev
+	apt --yes install libsqlite3-dev
+	apt --yes install libssl-dev
+	apt --yes install libudunits2-dev
+	apt --yes install libv8-dev
+	apt --yes install netcdf-bin
+	apt --yes install protobuf-compiler
+	apt --yes install sqlite3
+	apt --yes install tk-dev
+	apt --yes install unixodbc-dev
+
+# Install libraries and packages needed to compile the 'MazamaSpatialUtils' package
+#   https://hub.docker.com/r/rocker/geospatial/dockerfile
 MazamaSpatialUtils:
 	# Install system libraries
-	sudo apt --yes install libgdal1-dev gdal-bin
-	sudo apt --yes install libgeos-c1 libgeos-dev
-	sudo apt --yes install libproj0 libproj-dev proj-bin proj-data
-	# Install R packages
+	apt --yes install libcurl4-openssl-dev
+	# Install R packages for MazamaSpatialUtils 0.6
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('sp','rgdal','rgeos','maptools'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','rvest','testthat'))"
-
+	# Install R packages for MazamaSpatialUtils 0.7
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('lubridate','remotes','tidyr'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('cleangeo','countrycode','geojsonio','rmapshaper'))"
