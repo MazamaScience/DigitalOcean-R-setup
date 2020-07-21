@@ -18,19 +18,20 @@ Good instructions for creating an account and authenticating are documented in t
 
 ## Instructions
 
-1. Set up your droplet at digitalocean.com.
+1. Spin up your droplet in RStudio using the [analogsea](https://analogsea.icu) package:
+  * `> d1 <- droplet_create(ssh_keys = "YOUR_PERSONAL_ACCESS_TOKEN")`
 2. Log on to your droplet with ssh. (You will be the 'root' user.)
-3. Install make, vim, git and subversion by hand
-  * Debian, Ubuntu: `apt-get update; apt-get --yes install make vim git subversion`
-  * Fedora, CentOS: `yum --assumeyes install make vim git subversion`
-4. Get the Makefiles and run make
+3. Install make, vim and git by hand:
+  * Debian, Ubuntu: `apt-get update; apt-get --yes install make vim git`
+  * Fedora, CentOS: `yum --assumeyes install make vim git`
+4. Get the Makefiles and run make:
   * `git clone https://github.com/jonathancallahan/DigitalOcean-R-setup.git`
   * `cd DigitalOcean-R-setup`
   * `make -f Makefile.*OS_TARGET* all`
-5. User svn or git to get your own code and test compile with
-  * `R-devel CMD build *YOUR_PACKAGE*`
+5. Use git to get your own code and test compile with:
+  * `R-devel CMD build --resave-data *YOUR_PACKAGE*`
   * `R-devel CMD check --as-cran *YOUR_PACKAGE*`
-6. `poweroff` when you are finished.
+6. `> d1 %>% droplet_power_off()` when you are finished.
 7. __*Create a snapshot and delete your droplet to stop recurring fees.*__
 
 The entire process should take less than half an hour per OS and means that you can thoroughly test your R package on a wide variety of Linux OS before submitting to CRAN.
