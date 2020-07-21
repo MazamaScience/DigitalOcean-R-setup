@@ -23,6 +23,14 @@ all: setup r-devel documentation
 # Update and compile R
 update: update-r r-devel
 
+# Add swap space
+add_swap:
+	fallocate -l 4G /swapfile
+	chmod 600 /swapfile
+	mkswap /swapfile
+	sudo swapon /swapfile
+	sudo echo \"/swapfile   none    swap    sw    0   0\" >> /etc/fstab
+
 # Core system assets and libraries
 setup:
 	# Set git editor to vim
