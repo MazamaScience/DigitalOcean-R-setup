@@ -19,6 +19,7 @@ Good instructions for creating an account and authenticating are documented in t
 ## Instructions
 
 1. Spin up your droplet in RStudio using the [analogsea](https://analogsea.icu) package:
+  * `> keys() # to find your PERSONAL_ACCESS_TOKEN`
   * `> d1 <- droplet_create(ssh_keys = "YOUR_PERSONAL_ACCESS_TOKEN")`
 2. Log on to your droplet with ssh. (You will be the 'root' user.)
 3. Install make, vim, git and subversion by hand:
