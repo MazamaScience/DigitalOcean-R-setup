@@ -2,15 +2,15 @@
 #
 # Targets for installation of software on Digital Ocean VMs.
 #
-# Software includes the bare minimum to test R compilation of the
-# 'MazamaSpatialUtils' package developed by Mazama Science.
+# Installed software includes R 4.0.x along with system libraries and R packages
+# required to build MazamaCoreUtils and MazamaSpatialUtils. 
 #
-# Hints on compiling the development version of R for CRAN testing:
-#   https://cran.r-project.org/bin/linux/debian/#installing-r-devel-or-a-release-branch-from-svn
+# Hints on installing R:
+#   https://cran.r-project.org/bin/linux/debian
 
 
 # Default target
-all: add_swap setup base_R documentation geospatial
+all: add_swap setup base_r documentation geospatial
 	# Get and compile R packages
 	echo "Get package source code via svn or git."
 	echo "R CMD build YOUR_FLAGS YOUR_PACKAGE"
@@ -25,7 +25,7 @@ add_swap:
 	sudo swapon /swapfile
 	sudo echo \"/swapfile   none    swap    sw    0   0\" >> /etc/fstab
 
-# Core system assets and libraries
+# Setup apt for R 4.0
 setup:
 	# Set git editor to vim
 	echo "export GIT_EDITOR=vim" >> ~/.bashrc
@@ -40,7 +40,7 @@ setup:
 	apt --yes upgrade
 
 # Base R	
-base_R:
+base_r:
 	apt --yes install -t buster-cran40 r-base
 
 # Libraries and packages needed to compile package documentation
@@ -51,10 +51,11 @@ documentation:
 	# Install R packages
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr','rmarkdown'))"
 
-# Install libraries and executables needed for geospatial analysis
+# System libraries required for geospatial analysis
+#   https://hub.docker.com/r/rocker/geospatial/dockerfile
 geospatial:
-	# Geospatial components copied from https://hub.docker.com/r/rocker/geospatial/dockerfile
 	apt --yes install lbzip2
+	apt --yes install libcurl4-openssl-dev
 	apt --yes install libfftw3-dev
 	apt --yes install libgdal-dev
 	apt --yes install libgeos-dev
@@ -75,16 +76,15 @@ geospatial:
 	apt --yes install tk-dev
 	apt --yes install unixodbc-dev
 
-# Install libraries and packages needed to compile the 'MazamaSpatialUtils' package
-#   https://hub.docker.com/r/rocker/geospatial/dockerfile
+# R packages used by Mazama Science
+mazama_base:
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('remotes','rmarkdown','testthat'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('lubridate','readr','stringr'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','tidyr','rvest'))"
+
+# R Packages required to build MazamaSpatialUtils
 MazamaSpatialUtils:
-	# Install system libraries
-	apt --yes install libcurl4-openssl-dev
-	# Install R packages for MazamaSpatialUtils 0.6
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('sp','rgdal','rgeos','maptools'))"
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','rvest','testthat'))"
-	# Install R packages for MazamaSpatialUtils 0.7
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('lubridate','remotes','tidyr'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('rgdal','rgeos','sp','maptools'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('cleangeo','countrycode','geojsonio','rmapshaper'))"
 
 
