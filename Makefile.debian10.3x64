@@ -10,12 +10,11 @@
 
 
 # Default target
-all: add_swap setup base_r documentation geospatial
+all: add_swap setup base_r documentation geospatial docker mazama_base mazama_core mazama_spatial
 	# Get and compile R packages
-	echo "Get package source code via svn or git."
-	echo "R CMD build YOUR_FLAGS YOUR_PACKAGE"
-	echo "R CMD check YOUR_FLAGS YOUR_PACKAGE.VERSION.tar.gz"
-	echo "R CMD INSTALL YOUR_PACKAGE.VERSION.tar.gz"
+	echo "*********************************"
+	echo "*  System preparation complete  *"
+	echo "*********************************"
 
 # Add swap space
 add_swap:
@@ -75,6 +74,15 @@ geospatial:
 	apt --yes install sqlite3
 	apt --yes install tk-dev
 	apt --yes install unixodbc-dev
+
+# Docker
+#   https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-debian-10
+docker:
+	apt --yes install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+	add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+	apt update
+	apt --yes install docker-ce
 
 # R packages used by Mazama Science
 mazama_base:
