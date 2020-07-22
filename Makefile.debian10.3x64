@@ -83,7 +83,11 @@ mazama_base:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','tidyr','rvest'))"
 
 # R Packages required to build MazamaSpatialUtils
-MazamaSpatialUtils:
+mazama_core:
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('futile.logger','devtools'))"
+
+# R Packages required to build MazamaSpatialUtils
+mazama_spatial:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('rgdal','rgeos','sp','maptools'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('cleangeo','countrycode','geojsonio','rmapshaper'))"
 
