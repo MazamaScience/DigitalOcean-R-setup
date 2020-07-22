@@ -58,7 +58,7 @@ managing DO droplets from the R console. Thee instructions below don't use
   * `git clone https://github.com/MazamaScience/MazamaCoreUtils.git`
 6. Compile with _e.g._:
   * `R CMD build --resave-data MazamaCoreUtils`
-  * `R CMD check --as-cran MazamaCoreUtils_0.4.4.tar.gz.`
+  * `R CMD check --as-cran MazamaCoreUtils_0.4.4.tar.gz`
 7. At the DO console, power off when you are finished.
 8. __*Create a snapshot and delete your droplet to stop recurring fees.*__
 
