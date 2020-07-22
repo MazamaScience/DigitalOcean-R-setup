@@ -10,12 +10,11 @@
 
 
 # Default target
-all: setup base_r documentation geospatial
+all: add_swap setup base_r documentation geospatial docker mazama_base mazama_core mazama_spatial
 	# Get and compile R packages
-	echo "Get package source code via svn or git."
-	echo "R CMD build YOUR_FLAGS YOUR_PACKAGE"
-	echo "R CMD check YOUR_FLAGS YOUR_PACKAGE.VERSION.tar.gz"
-	echo "R CMD INSTALL YOUR_PACKAGE.VERSION.tar.gz"
+	echo "*********************************"
+	echo "*  System preparation complete  *"
+	echo "*********************************"
 
 # Setup apt for R 4.0
 setup:
@@ -68,6 +67,15 @@ geospatial:
 	apt --yes install tk-dev
 	apt --yes install unixodbc-dev
 
+# Docker
+#   https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
+docker:
+	apt --yes install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+	apt update
+	apt --yes install docker-ce
+
 # R packages used by Mazama Science
 mazama_base:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('remotes','rmarkdown','testthat'))"
@@ -75,6 +83,12 @@ mazama_base:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','tidyr','rvest'))"
 
 # R Packages required to build MazamaSpatialUtils
-MazamaSpatialUtils:
+mazama_core:
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('futile.logger','devtools'))"
+
+# R Packages required to build MazamaSpatialUtils
+mazama_spatial:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('rgdal','rgeos','sp','maptools'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('cleangeo','countrycode','geojsonio','rmapshaper'))"
+
+
