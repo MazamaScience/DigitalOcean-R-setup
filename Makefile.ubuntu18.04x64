@@ -10,7 +10,7 @@
 
 
 # Default target
-all: add_swap setup base_r documentation geospatial docker mazama_base mazama_core mazama_spatial
+all: setup base_r documentation geospatial docker mazama_base mazama_core mazama_spatial
 	# Get and compile R packages
 	echo "*********************************"
 	echo "*  System preparation complete  *"
