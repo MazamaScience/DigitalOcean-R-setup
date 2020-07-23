@@ -42,8 +42,19 @@ setup:
 base_r:
 	apt --yes install -t buster-cran40 r-base
 
+# RStudio
+#   https://rstudio.com/products/rstudio/download-server/debian-ubuntu/
+rstudio:
+	sudo apt-get --yes install gdebi-core
+	wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.1056-amd64.deb
+	sudo gdebi rstudio-server-1.3.1056-amd64.deb
+
 # Libraries and packages needed to compile package documentation
 documentation:
+	# Enable pandoc
+	#   https://rmarkdown.rstudio.com/docs/articles/pandoc.html
+	sudo ln -s /usr/lib/rstudio/bin/pandoc/pandoc /usr/local/bin
+	sudo ln -s /usr/lib/rstudio/bin/pandoc/pandoc-citeproc /usr/local/bin
 	# Install system libraries
 	apt --yes install texlive
 	apt --yes install qpdf
@@ -90,7 +101,7 @@ mazama_base:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('lubridate','readr','stringr'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dplyr','tidyr','rvest'))"
 
-# R Packages required to build MazamaSpatialUtils
+# R Packages required to build MazamaCoreUtils
 mazama_core:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('futile.logger','devtools'))"
 
@@ -98,5 +109,15 @@ mazama_core:
 mazama_spatial:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('rgdal','rgeos','sp','maptools'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('cleangeo','countrycode','geojsonio','rmapshaper'))"
+
+# R Packages required to build MazamaLocationUtils
+mazama_location:
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('geodist','MazamaCoreUtils','revgeo'))"
+
+###ERROR: dependencies ‘maps’, ‘dygraphs’, ‘geosphere’, ‘ggmap’, ‘leaflet’, ‘mapproj’, ‘openair’, ‘png’, ‘raster’, ‘RColorBrewer’, ‘RgoogleMaps’, ‘reshape2’, ‘slippymath’, ‘xts’ are no
+# R Packages required to build PWFSLSmoke
+pwfslsmoke:
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('reshape2','xts'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('ggmap','leaflet','maps'))"
 
 
