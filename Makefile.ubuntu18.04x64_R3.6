@@ -76,7 +76,6 @@ geospatial:
 	apt --yes install libudunits2-dev
 	apt --yes install libv8-dev
 	apt --yes install netcdf-bin
-	apt --yes install protobuf-dev
 	apt --yes install protobuf-compiler
 	apt --yes install sqlite3
 	apt --yes install tk-dev
@@ -105,16 +104,23 @@ mazama_core:
 mazama_spatial:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('rgdal','rgeos','sp','maptools'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('cleangeo','countrycode','geojsonio','rmapshaper'))"
+	# 'shiny' can be removed for MazamaSpatialUtils 0.7
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('shiny'))"
 
 # R Packages required to build MazamaLocationUtils
 mazama_location:
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('geodist','MazamaCoreUtils','revgeo'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('geodist','revgeo'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('MazamaCoreUtils','MazamaSpatialUtils'))"
 
 # R Packages required to build PWFSLSmoke
 pwfslsmoke:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('reshape2','xts'))"
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('ggmap','leaflet','maps'))"
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('geosphere','mapproj','openair','slippymath))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dygraphs','ggmap','leaflet','maps'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('geosphere','mapproj','openair','slippymath'))"
+
+# R Packages required to build AirSensor
+pwfslsmoke:
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('PWFSLSmoke'))"
 
 
 # ------------------------------------------------------------------------------
@@ -127,6 +133,5 @@ mazama_repos:
 	git clone https://github.com/MazamaScience/MazamaLocationUtils.git
 	git clone https://github.com/MazamaScience/PWFSLSmoke.git
 	git clone https://github.com/MazamaScience/AirSensor.git
-
 
 
