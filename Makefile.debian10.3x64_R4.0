@@ -25,10 +25,13 @@ add_swap:
 	sudo echo \"/swapfile   none    swap    sw    0   0\" >> /etc/fstab
 
 # Setup apt for R 4.0
+#   https://cran.r-project.org/bin/linux/ubuntu
 setup:
 	# Set git editor to vim
 	echo "export GIT_EDITOR=vim" >> ~/.bashrc
 	export GIT_EDITOR=vim
+	echo "export SVN_EDITOR=vim" >> ~/.bashrc
+	export SVN_EDITOR=vim
 	# Update apt
 	apt --yes install gnupg
 	echo "" >> /etc/apt/sources.list
@@ -56,7 +59,7 @@ documentation:
 	sudo ln -s /usr/lib/rstudio/bin/pandoc/pandoc /usr/local/bin
 	sudo ln -s /usr/lib/rstudio/bin/pandoc/pandoc-citeproc /usr/local/bin
 	# Install system libraries
-	apt --yes install texlive
+	sudo apt --yes install texlive texinfo
 	apt --yes install qpdf
 	# Install R packages
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('knitr','rmarkdown'))"
@@ -69,6 +72,7 @@ geospatial:
 	apt --yes install libfftw3-dev
 	apt --yes install libgdal-dev
 	apt --yes install libgeos-dev
+	apt --yes install libgeos++-dev
 	apt --yes install libhdf4-alt-dev
 	apt --yes install libhdf5-dev
 	apt --yes install libjq-dev
@@ -109,15 +113,34 @@ mazama_core:
 mazama_spatial:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('rgdal','rgeos','sp','maptools'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('cleangeo','countrycode','geojsonio','rmapshaper'))"
+	# 'shiny' can be removed for MazamaSpatialUtils 0.7
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('shiny'))"
 
 # R Packages required to build MazamaLocationUtils
-mazama_location:
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('geodist','MazamaCoreUtils','revgeo'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('geodist','revgeo'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('MazamaCoreUtils','MazamaSpatialUtils'))"
 
-###ERROR: dependencies ‘maps’, ‘dygraphs’, ‘geosphere’, ‘ggmap’, ‘leaflet’, ‘mapproj’, ‘openair’, ‘png’, ‘raster’, ‘RColorBrewer’, ‘RgoogleMaps’, ‘reshape2’, ‘slippymath’, ‘xts’ are no
 # R Packages required to build PWFSLSmoke
 pwfslsmoke:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('reshape2','xts'))"
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('ggmap','leaflet','maps'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('dygraphs','ggmap','leaflet','maps'))"
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('geosphere','mapproj','openair','slippymath'))"
+
+# R Packages required to build AirSensor
+airsensor:
+	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('PWFSLSmoke'))"
+
+
+# ------------------------------------------------------------------------------
+# To be executed from the /root/ directory with:
+#
+#   make -f DigitalOcean-R-setup/Makefile.ubuntu18.04x64_R3.6 mazama_repos
+mazama_repos:
+	git clone https://github.com/MazamaScience/MazamaCoreUtils.git
+	git clone https://github.com/MazamaScience/MazamaSpatialUtils.git
+	git clone https://github.com/MazamaScience/MazamaLocationUtils.git
+	git clone https://github.com/MazamaScience/PWFSLSmoke.git
+	git clone https://github.com/MazamaScience/AirSensor.git
+
 
 
