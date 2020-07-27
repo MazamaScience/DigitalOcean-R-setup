@@ -10,7 +10,7 @@
 
 
 # Default target
-all: setup base_r documentation geospatial docker mazama_base mazama_core mazama_spatial
+all: setup base_r rstudio documentation geospatial docker mazama_base mazama_core mazama_spatial mazama_location pwfslsmoke
 	# Get and compile R packages
 	echo "*********************************"
 	echo "*  System preparation complete  *"
