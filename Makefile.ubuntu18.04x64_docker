@@ -12,15 +12,19 @@ all: setup docker
 	echo "*  System preparation complete  *"
 	echo "*********************************"
 
-# Basic Unix utils
-#   vim, git, top, uptime, free, make
+# NOTE:  Unix utils: vim, git, top, uptime, free, make have already been installed.
+# NOTE:  We needed them to git pull this repository:
+
+# Setup
+#   https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04
 setup:
-	# Set git editor to vim
-	echo "export GIT_EDITOR=vim" >> ~/.bashrc
-	export GIT_EDITOR=vim
 	# Update apt
 	sudo apt update
 	sudo apt --yes --force-yes upgrade
+	# Set git editor to vim
+	echo "export GIT_EDITOR=vim" >> ~/.bashrc
+	export GIT_EDITOR=vim
+	echo "Follow instructions at: https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"
 
 # Docker
 #   https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
@@ -32,4 +36,7 @@ docker:
 	apt --yes install docker-ce
 
 
-
+# Apache
+#  https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04
+apache:
+	apt --yes install apache2

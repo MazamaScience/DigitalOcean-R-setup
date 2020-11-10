@@ -49,18 +49,21 @@ managing DO droplets from the R console. Thee instructions below don't use
 3. Install make, vim, git and subversion by hand:
   * Debian, Ubuntu: `apt update; apt --yes install make vim git subversion`
   * Fedora, CentOS: `yum --assumeyes install make vim git subversion`
-4. Get the Makefiles and run make:
+4. Set up the server:
+  * follow [Initial Server Setup](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04)
+  * log out as root and log on as 'mazama' with `ssh mazama@<ip address>`
+5. Get the Makefiles and run make:
   * `git clone https://github.com/jonathancallahan/DigitalOcean-R-setup.git`
   * `cd DigitalOcean-R-setup`
   * `make -f Makefile.*OS_TARGET* all`
-5. Clone your R package source code _e.g._:
+6. Clone your R package source code _e.g._:
   * `cd ~`
   * `git clone https://github.com/MazamaScience/MazamaCoreUtils.git`
-6. Compile with _e.g._:
+7. Compile with _e.g._:
   * `R CMD build --resave-data MazamaCoreUtils`
   * `R CMD check --as-cran MazamaCoreUtils_0.4.4.tar.gz`
-7. At the DO console, power off when you are finished.
-8. __*Create a snapshot and delete your droplet to stop recurring fees.*__
+8. At the DO console, power off when you are finished.
+9. __*Create a snapshot and delete your droplet to stop recurring fees.*__
 
 ## Building a VM from a snapshot
 
