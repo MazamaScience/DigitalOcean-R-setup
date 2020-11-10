@@ -53,7 +53,7 @@ managing DO droplets from the R console. Thee instructions below don't use
   * follow [Initial Server Setup](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04)
   * log out as root and log on as 'mazama' with `ssh mazama@<ip address>`
 5. Get the Makefiles and run make:
-  * `git clone https://github.com/jonathancallahan/DigitalOcean-R-setup.git`
+  * `git clone https://github.com/MazamaScience/DigitalOcean-R-setup.git`
   * `cd DigitalOcean-R-setup`
   * `make -f Makefile.*OS_TARGET* all`
 6. Clone your R package source code _e.g._:
