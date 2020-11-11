@@ -29,7 +29,7 @@ We will be skipping the creation of a non-root user.
 
 [How To Install the Apache Web Server on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04)
 
-All commands should be executed as 'root'.
+All commands should be executed as root.
 
 1. Run Apache installation
   * `make -f Makefiles/Makefile.ubuntu18.04x64_docker apache`
@@ -44,21 +44,6 @@ All commands should be executed as 'root'.
 [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
 
 
-
-
-4. Set up the server:
-  * follow [Initial Server Setup](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04)
-  * log out as root and log on as 'mazama' with `ssh mazama@<ip address>`
-5. Get the Makefiles and run make:
-  * `git clone https://github.com/MazamaScience/DigitalOcean-R-setup.git`
-  * `cd DigitalOcean-R-setup`
-  * `make -f Makefile.*OS_TARGET* all`
-6. Clone your R package source code _e.g._:
-  * `cd ~`
-  * `git clone https://github.com/MazamaScience/MazamaCoreUtils.git`
-7. Compile with _e.g._:
-  * `R CMD build --resave-data MazamaCoreUtils`
-  * `R CMD check --as-cran MazamaCoreUtils_0.4.4.tar.gz`
-8. At the DO console, power off when you are finished.
-9. __*Create a snapshot and delete your droplet to stop recurring fees.*__
+1. Install docker
+  * `make -f Makefiles/Makefile.ubuntu18.04x64_docker docker`
 
