@@ -1,0 +1,20 @@
+###############################################################################
+#     Log files to track server load
+###############################################################################
+
+###############################################################################
+# Uptime log
+00,15,30,45 *  *   *   *   sudo echo "`date -Iseconds` " | tr -d '\n'  >> /var/www/html/logs/uptime.log
+01,16,31,46 *  *   *   *   sudo uptime >> /var/www/html/logs/uptime.log
+
+###############################################################################
+# free (memory) log
+00,15,30,45 *  *   *   *   sudo echo "`date -Iseconds` " | tr -d '\n'  >> /var/www/html/logs/free_memory.log
+01,16,31,46 *  *   *   *   sudo free -m | head -2 | tail -1 >> /var/www/html/logs/free_memory.log
+
+###############################################################################
+# disk usage log
+00,15,30,45 *  *   *   *   sudo echo "`date -Iseconds` " | tr -d '\n'  >> /var/www/html/logs/disk_usage.log
+01,16,31,46 *  *   *   *   sudo df --type=ext4 | tail -1 >> /var/www/html/logs/disk_usage.log
+
+

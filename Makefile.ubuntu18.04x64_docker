@@ -2,41 +2,53 @@
 #
 # Targets for installation of software on Digital Ocean VMs.
 #
-# Installed software basic unix utilities, docker and apache -- the minimum
+# Installed software basic unix utilities, apache and docker -- the minimum
 # requirements for installing dockerized utilities. 
 #
-
-# Default target
-all: setup docker 
-	echo "*********************************"
-	echo "*  System preparation complete  *"
-	echo "*********************************"
 
 # NOTE:  Unix utils: vim, git, top, uptime, free, make have already been installed.
 # NOTE:  We needed them to git pull this repository:
 
-# Setup
-#   https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04
+# ----- Setup ------------------------------------------------------------------
+#
+# https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04
+
 setup:
 	# Update apt
 	sudo apt update
 	sudo apt --yes --force-yes upgrade
 	# Set git editor to vim
+	echo "export VISUAL=vim" >> ~/.bashrc
+	echo "export EDITOR=\"$VISUAL\"" >> ~/.bashrc
 	echo "export GIT_EDITOR=vim" >> ~/.bashrc
-	export GIT_EDITOR=vim
-	echo "Follow instructions at: https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"
+	export GIT_EDITOR=vim	
 
-# Docker
-#   https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
+# ----- Apache -----------------------------------------------------------------
+#
+# https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04
+
+apache:
+	sudo apt --yes install apache2
+	sudo ufw allow 'Apache'
+
+server_logs:
+	sudo mkdir /var/www/html/logs
+	sudo touch /var/www/html/logs/uptime.log
+	sudo chmod 666 /var/www/html/logs/uptime.log
+	sudo touch /var/www/html/logs/free_memory.log
+	sudo chmod 666 /var/www/html/logs/free_memory.log
+	sudo touch /var/www/html/logs/disk_usage.log
+	sudo chmod 666 /var/www/html/logs/disk_usage.log
+
+# ----- Docker -----------------------------------------------------------------
+#
+# https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
+
 docker:
-	apt --yes install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+	sudo apt --yes install apt-transport-https ca-certificates curl gnupg2 software-properties-common
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
-	apt update
+	sudo apt update
 	apt --yes install docker-ce
 
 
-# Apache
-#  https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04
-apache:
-	apt --yes install apache2
