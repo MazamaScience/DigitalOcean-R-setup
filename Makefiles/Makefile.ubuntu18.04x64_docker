@@ -27,18 +27,15 @@ setup:
 #
 # https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04
 
-apache:
+apache: server_logs
 	sudo apt --yes install apache2
 	sudo ufw allow 'Apache'
 
 server_logs:
 	sudo mkdir /var/www/html/logs
 	sudo touch /var/www/html/logs/uptime.log
-	sudo chmod 666 /var/www/html/logs/uptime.log
 	sudo touch /var/www/html/logs/free_memory.log
-	sudo chmod 666 /var/www/html/logs/free_memory.log
 	sudo touch /var/www/html/logs/disk_usage.log
-	sudo chmod 666 /var/www/html/logs/disk_usage.log
 
 # ----- Docker -----------------------------------------------------------------
 #

@@ -9,7 +9,6 @@ and without using virtual hosts with apache.
 
 [Initial Server Setup with Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04)
 
-
 1. Log in to [Digital Ocean](http://digitalocean.com) and create a new droplet:
   * Ubuntu 18.04 > Basic > Create Droplet"
 2. Log on to your droplet with ssh. (Find the droplet IP address in the DO dashboard.)
@@ -25,6 +24,11 @@ and without using virtual hosts with apache.
 ## Setting up Apache
 
 [How To Install the Apache Web Server on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04)
+
+1. Run Apache installation
+  * `make -f Makefiles/Makefile.ubuntu18.04x64_docker apache`
+  
+## Setting up Docker
 
 [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
 
