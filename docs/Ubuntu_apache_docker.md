@@ -30,7 +30,7 @@ We will be skipping the creation of a non-root user.
 
 [How To Install the Apache Web Server on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04)
 
-All commands should be executed as root.
+All commands should be executed as root while in the `DigitalOcean-R-setup/` directory.
 
 1. Run Apache installation
   * `make -f Makefiles/Makefile.ubuntu18.04x64_docker apache`
