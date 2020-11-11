@@ -22,7 +22,8 @@ We will be skipping the creation of a non-root user.
 5. Get the Makefiles:
   * `git clone https://github.com/MazamaScience/DigitalOcean-R-setup.git`
 6. Set default editors, etc.
-  * `Make -f Makefiles/Makefile.ubuntu18.04x64_docker setup`
+  * `cd DigitalOcean-R-setup`
+  * `make -f Makefiles/Makefile.ubuntu18.04x64_docker setup`
 
 
 ## Setting up Apache and Server-Health Logs
