@@ -15,7 +15,7 @@ We will be skipping the creation of a non-root user.
   * Ubuntu 18.04 > Basic > Create Droplet"
 2. Log on to your droplet with ssh. (Find the droplet IP address in the DO dashboard.)
   * `ssh root@<ip address>`
-3. Install make, vim, git and subversion by hand:
+3. Install make, vim and git by hand:
   * `apt update; apt --yes install make vim git`
 4. Set up the basic firewall
   * `ufw allow OpenSSH; ufw enable`
@@ -46,4 +46,10 @@ All commands should be executed as root.
 
 1. Install docker
   * `make -f Makefiles/Makefile.ubuntu18.04x64_docker docker`
+
+
+## Setting up a Dockerized Service.
+
+Congratulations! This DO server is now ready to have a dockerized service 
+installed. Please see setup instructions in each service repository.
 

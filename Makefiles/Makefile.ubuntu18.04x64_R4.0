@@ -16,6 +16,9 @@ all: setup base_r rstudio documentation geospatial docker mazama_base mazama_cor
 	echo "*  System preparation complete  *"
 	echo "*********************************"
 
+# Ready to compile MazamaSpatialUtils
+spatial: setup base_r rstudio documentation geospatial mazama_base mazama_core mazama_spatial
+
 # Setup apt for R 4.0
 #   https://cran.r-project.org/bin/linux/ubuntu
 setup:
