@@ -22,14 +22,15 @@ We will be skipping the creation of a non-root user.
 5. Get the Makefiles:
   * `git clone https://github.com/MazamaScience/DigitalOcean-R-setup.git`
 6. Set default editors, etc.
-  * `Make -f Makefiles/Makefile.ubuntu18.04x64_docker setup`
+  * `cd DigitalOcean-R-setup`
+  * `make -f Makefiles/Makefile.ubuntu18.04x64_docker setup`
 
 
 ## Setting up Apache and Server-Health Logs
 
 [How To Install the Apache Web Server on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04)
 
-All commands should be executed as root.
+All commands should be executed as root while in the `DigitalOcean-R-setup/` directory.
 
 1. Run Apache installation
   * `make -f Makefiles/Makefile.ubuntu18.04x64_docker apache`
