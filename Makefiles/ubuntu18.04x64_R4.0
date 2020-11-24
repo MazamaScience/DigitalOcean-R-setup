@@ -129,7 +129,7 @@ airsensor:
 # ------------------------------------------------------------------------------
 # To be executed from the /root/ directory with:
 #
-#   make -f DigitalOcean-R-setup/Makefile.ubuntu18.04x64_R3.6 mazama_repos
+#   make -f DigitalOcean-R-setup/Makefiles/ubuntu18.04x64_R3.6 mazama_repos
 mazama_repos:
 	git clone https://github.com/MazamaScience/MazamaCoreUtils.git
 	git clone https://github.com/MazamaScience/MazamaSpatialUtils.git
