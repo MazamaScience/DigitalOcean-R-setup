@@ -16,6 +16,13 @@ all: setup base_r rstudio documentation geospatial docker mazama_base mazama_cor
 	echo "*  System preparation complete  *"
 	echo "*********************************"
 
+# Ready for MazamaSpatialUtils
+spatial: setup base_r rstudio documentation geospatial mazama_base mazama_core mazama_spatial
+	# Get and compile R packages
+	echo "*********************************"
+	echo "*  System preparation complete  *"
+	echo "*********************************"
+
 # Setup apt for R 3.6.3
 #   https://cran.r-project.org/bin/linux/ubuntu
 setup:
@@ -104,8 +111,6 @@ mazama_core:
 mazama_spatial:
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('rgdal','rgeos','sp','maptools'))"
 	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('cleangeo','countrycode','geojsonio','rmapshaper'))"
-	# 'shiny' can be removed for MazamaSpatialUtils 0.7
-	/usr/bin/Rscript -e "install.packages(repos=c('http://cran.fhcrc.org/'), pkgs=c('shiny'))"
 
 # R Packages required to build MazamaLocationUtils
 mazama_location:
@@ -126,7 +131,7 @@ airsensor:
 # ------------------------------------------------------------------------------
 # To be executed from the /root/ directory with:
 #
-#   make -f DigitalOcean-R-setup/Makefile.ubuntu18.04x64_R3.6 mazama_repos
+#   make -f DigitalOcean-R-setup/Makefiles/ubuntu18.04x64_R3.6 mazama_repos
 mazama_repos:
 	git clone https://github.com/MazamaScience/MazamaCoreUtils.git
 	git clone https://github.com/MazamaScience/MazamaSpatialUtils.git
