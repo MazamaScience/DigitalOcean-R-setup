@@ -10,14 +10,14 @@
 
 
 # Default target
-all: setup base_r rstudio documentation geospatial docker mazama_base mazama_core mazama_spatial mazama_location pwfslsmoke
+all: setup base_r rstudio documentation geospatial V8 docker mazama_base mazama_core mazama_spatial mazama_location pwfslsmoke
 	# Get and compile R packages
 	echo "*********************************"
 	echo "*  System preparation complete  *"
 	echo "*********************************"
 
 # Ready for MazamaSpatialUtils
-spatial: setup base_r rstudio documentation geospatial mazama_base mazama_core mazama_spatial
+spatial: setup base_r rstudio documentation geospatial V8 mazama_base mazama_core mazama_spatial
 	# Get and compile R packages
 	echo "*********************************"
 	echo "*  System preparation complete  *"
@@ -87,6 +87,13 @@ geospatial:
 	apt --yes install sqlite3
 	apt --yes install tk-dev
 	apt --yes install unixodbc-dev
+
+# V8
+#   https://github.com/jeroen/V8#backports-for-xenial-and-bionic
+V8:
+	sudo add-apt-repository ppa:cran/V8
+	sudo apt-get update
+	sudo apt-get install libnode-dev
 
 # Docker
 #   https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
