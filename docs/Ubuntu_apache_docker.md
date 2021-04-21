@@ -40,13 +40,16 @@ All commands should be executed as root while in the `DigitalOcean-R-setup/` dir
   * `crontab crontabs_etc/crontab_server_health.txt`
 
 
-## Setting up Docker
+## Setting up docker and docker-compose
 
 [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
+[How To Install and Use Docker Compose on Ubuntu 18.04](https://linuxize.com/post/how-to-install-and-use-docker-compose-on-ubuntu-18-04)
 
 
 1. Install docker
   * `make -f Makefiles/Makefile.ubuntu18.04x64_docker docker`
+2. Install docker-compose
+  * `make -f Makefiles/Makefile.ubuntu18.04x64_docker docker-compose`
 
 
 ## Setting up a Dockerized Service.
