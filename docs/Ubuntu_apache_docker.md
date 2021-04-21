@@ -1,6 +1,6 @@
 # Ubuntu with Apache and Docker
 
-Instructionss to set up Digital Ocean droplets with software to compile R packages.
+Instructions to set up Digital Ocean droplets with software to compile R packages.
 
 These instructions build a minimalist VM from scratch with only a 'root' user 
 and without using virtual hosts with apache.
