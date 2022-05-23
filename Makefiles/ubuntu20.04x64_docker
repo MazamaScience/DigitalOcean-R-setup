@@ -38,6 +38,7 @@ server_logs:
 	sudo touch /var/www/html/logs/uptime.log
 	sudo touch /var/www/html/logs/free_memory.log
 	sudo touch /var/www/html/logs/disk_usage.log
+	sudo chmod 666 /var/www/html/logs/*.log
 
 # ----- docker -----------------------------------------------------------------
 #
